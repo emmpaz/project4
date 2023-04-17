@@ -17,6 +17,9 @@
       },
       "api": {
         "project4": {}
+      },
+      "storage": {
+        "imagestorage": {}
       }
     }
   }
