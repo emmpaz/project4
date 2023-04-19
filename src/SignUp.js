@@ -6,7 +6,7 @@ import {
     Text
 } from "@aws-amplify/ui-react";
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
@@ -15,6 +15,7 @@ const SignUp = () => {
     const [code, setCode] = useState("");
 
     const navigate = useNavigate();
+    const inputRef = useRef(null);
 
    async function handleSignUp(event){
         event.preventDefault();
@@ -43,20 +44,32 @@ const SignUp = () => {
 
    }
 
-   useEffect(() => {
-    handleVerify();
-   },[code])
+//   useEffect(() => {
+//     if (!didMount.current) {
+//         didMount.current = true;
+//         return;
+//       }
+//       Auth.confirmSignUp(
+//         {
+//             username : username,
+//             code : inputRef.current.value
+//         }
+//     ).then(() => {
+//         navigate("/")
+//     }).catch((err) => {
+//         console.log(err)
+//     })
+        
+//     },[code]);
 
-   async function handleVerify(){
-    Auth.confirmSignUp(
-        {
-            username : username,
-            code : code
-        }
-    ).then(() => {
-        navigate("/")
+   async function handleVerify(event){
+    event.preventDefault();
+    const form = new FormData(event.target);
+    Auth.confirmSignUp(username, form.get("code")
+    ).then((value) => {
+        navigate("/");
     }).catch((err) => {
-        console.log()
+        console.log(err);
     })
    }
 
@@ -87,13 +100,12 @@ const SignUp = () => {
         </Flex>
     </View>
     {(verify) && 
-        <View as="form" margin="3rem 0" onSubmit={handleCode}>
+        <View as="form" margin="3rem 0" onSubmit={handleVerify}>
             <Flex direction="column" justifyContent="center">
                 <Text>A code was sent to your email.</Text>
                 <TextField
                     name="code"
                     placeholder='code'
-                    id="code"
                     label="code"
                     labelHidden
                     required></TextField>
