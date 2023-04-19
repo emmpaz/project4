@@ -139,10 +139,10 @@ const App = () => {
           }
         >
           <MenuItem onClick={() => navigate("/housingwanted")}>Housing wanted</MenuItem>
-          <MenuItem>Sublets/Temporary</MenuItem>
-          <MenuItem>Vacation rentals</MenuItem>
-          <MenuItem>Real estate for sale</MenuItem>
-          <MenuItem>Parking/Storage</MenuItem>
+          <MenuItem onClick={() => navigate("/sublets")}>Sublets/Temporary</MenuItem>
+          <MenuItem onClick={() => navigate("/vacationrentals")}>Vacation rentals</MenuItem>
+          <MenuItem onClick={() => navigate("/realestate")}>Real estate for sale</MenuItem>
+          <MenuItem onClick={() => navigate("/parking_storage")}>Parking/Storage</MenuItem>
         </Menu>
         <Menu
           trigger={
@@ -151,11 +151,11 @@ const App = () => {
             </MenuButton>
           }
         >
-          <MenuItem>Cars & Trucks</MenuItem>
-          <MenuItem>Motorcycles</MenuItem>
-          <MenuItem>Computers</MenuItem>
-          <MenuItem>Books</MenuItem>
-          <MenuItem>Furniture</MenuItem>
+          <MenuItem onClick={() => navigate("/carandtrucks")}>Cars & Trucks</MenuItem>
+          <MenuItem onClick={() => navigate("/motorcycles")}>Motorcycles</MenuItem>
+          <MenuItem onClick={() => navigate("/computers")}>Computers</MenuItem>
+          <MenuItem onClick={() => navigate("/books")}>Books</MenuItem>
+          <MenuItem onClick={() => navigate("/furniture")}>Furniture</MenuItem>
         </Menu>
         <Menu
           trigger={
@@ -164,11 +164,11 @@ const App = () => {
             </MenuButton>
           }
         >
-          <MenuItem>Automotive</MenuItem>
-          <MenuItem>Computer</MenuItem>
-          <MenuItem>Financial</MenuItem>
-          <MenuItem>Labor/Move</MenuItem>
-          <MenuItem>Pets</MenuItem>
+          <MenuItem onClick={() => navigate("/automotive")}>Automotive</MenuItem>
+          <MenuItem onClick={() => navigate("/computer")}>Computer</MenuItem>
+          <MenuItem onClick={() => navigate("/financial")}>Financial</MenuItem>
+          <MenuItem onClick={() => navigate("/labor_move")}>Labor/Move</MenuItem>
+          <MenuItem onClick={() => navigate("/pets")}>Pets</MenuItem>
         </Menu>
         <Menu
           trigger={
@@ -177,11 +177,11 @@ const App = () => {
             </MenuButton>
           }
         >
-          <MenuItem>Admin/Office</MenuItem>
-          <MenuItem>Education</MenuItem>
-          <MenuItem>Transportation</MenuItem>
-          <MenuItem>Security</MenuItem>
-          <MenuItem>General Labor</MenuItem>
+          <MenuItem onClick={() => navigate("/admin_office")}>Admin/Office</MenuItem>
+          <MenuItem onClick={() => navigate("/education")}>Education</MenuItem>
+          <MenuItem onClick={() => navigate("/transportation")}>Transportation</MenuItem>
+          <MenuItem onClick={() => navigate("/security")}>Security</MenuItem>
+          <MenuItem onClick={() => navigate("/generallabor")}>General Labor</MenuItem>
         </Menu>
         <Menu
           trigger={
@@ -190,11 +190,11 @@ const App = () => {
             </MenuButton>
           }
         >
-          <MenuItem>Activities</MenuItem>
-          <MenuItem>Child care</MenuItem>
-          <MenuItem>Classes</MenuItem>
-          <MenuItem>Lost & Found</MenuItem>
-          <MenuItem>Volunteer</MenuItem>
+          <MenuItem onClick={() => navigate("/activites")}>Activities</MenuItem>
+          <MenuItem onClick={() => navigate("/childcare")}>Child care</MenuItem>
+          <MenuItem onClick={() => navigate("/classes")}>Classes</MenuItem>
+          <MenuItem onClick={() => navigate("/lostandfound")}>Lost & Found</MenuItem>
+          <MenuItem onClick={() => navigate("/volunteers")}>Volunteer</MenuItem>
         </Menu>
       </div>
       <Heading level={2}>Current Postings</Heading>
