@@ -1,0 +1,16 @@
+.HeaderContainer{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+.HeaderContainer h3{
+    margin-right: 10px;
+}
+
+.Header_Buttons_Container{
+    margin-right: 40px;
+}
+
+.Header_Buttons_Container Button{
+    margin: 0 10px 0 10px;
+}

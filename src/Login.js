@@ -12,40 +12,44 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-   async function handleSignIn(event){
+    async function handleSignIn(event) {
         event.preventDefault();
         const form = new FormData(event.target);
         Auth.signIn(
             {
-                username : form.get("username"),
-                password : form.get("password")
-            
+                username: form.get("username"),
+                password: form.get("password")
+
             }).then((value) => {
                 navigate("/")
             }).catch((err) => {
                 console.log(err)
             })
-   }
+    }
 
-    return(
-    <View as="form" margin="3rem 0" onSubmit={handleSignIn}>
-        <Flex direction="column" justifyContent="center">
-          <TextField
-            name="username"
-            placeholder='username'
-            label="username"
-            labelHidden
-            required></TextField>
-            <TextField
-            type='password'
-            name="password"
-            placeholder='password'
-            label="password"
-            labelHidden
-            required></TextField>
-            <Button type="submit" variation='primary'>Login</Button>
-        </Flex>
-    </View>
+    return (
+        <div className="sign_up_page_container">
+            <div className="sign_up_container">
+                <View as="form" margin="3rem 0" onSubmit={handleSignIn}>
+                    <Flex direction="column" justifyContent="center">
+                        <TextField
+                            name="username"
+                            placeholder='username'
+                            label="username"
+                            labelHidden
+                            required></TextField>
+                        <TextField
+                            type='password'
+                            name="password"
+                            placeholder='password'
+                            label="password"
+                            labelHidden
+                            required></TextField>
+                        <Button type="submit" variation='primary'>Login</Button>
+                    </Flex>
+                </View>
+            </div>
+        </div>
     )
 }
 
