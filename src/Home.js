@@ -56,7 +56,7 @@ const App = () => {
       setUsername(value.username)
     }).catch((err) => {
       if (err)
-        setUsername("Welcome guest!")
+        setUsername("")
     });
   }
   async function createNote(event) {
@@ -86,16 +86,6 @@ const App = () => {
     await API.graphql({
       query: deleteNoteMutation,
       variables: { input: { id } }
-    })
-  }
-
-  const handleSignIn = () => navigate("/login")
-
-  const handleSignUp = () => navigate("/signup")
-
-  const handleSignOut = () => {
-    Auth.signOut().then((value) => {
-      navigate(0);
     })
   }
 

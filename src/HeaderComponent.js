@@ -25,7 +25,7 @@ const HeaderComponent = () => {
             setUsername(value.username)
         }).catch((err) => {
             if (err)
-                setUsername("Welcome guest!")
+                setUsername("")
         });
     }
 
@@ -42,15 +42,15 @@ const HeaderComponent = () => {
     return (
         <div className='HeaderContainer'>
             <h3>
-                Hello {(username === "Welcome guest!") ? guest : username}!
+                Hello {(username === "") ? guest : username}!
             </h3>
-            {(username === "Welcome guest!") &&
+            {(username === "") &&
                 <div className="Header_Buttons_Container">
                     <Button type="submit" variation='primary' onClick={handleSignIn}>Login In</Button>
                     <Button type="submit" variation='primary' onClick={handleSignUp}>Sign Up</Button>
                 </div>
             }
-            {(username !== "Welcome guest!") &&
+            {(username !== "") &&
                 <div className='Header_Buttons_Container '>
                     <Button type="submit" variation='primary' onClick={handleSignOut}>Sign Out</Button>
                 </div>
