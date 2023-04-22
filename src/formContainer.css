@@ -1,0 +1,31 @@
+.Estate-Form-Container{
+    display: flex;
+    justify-content: center;
+    border-style: solid;
+}
+
+.contentContainer{
+    display: flex;
+    border-style: solid;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ItemContainer{
+    display: flex;
+    justify-content: center;
+    border-style: solid;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.ItemDetailsContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.ItemContainer span,.ItemContainer h1,.ItemContainer button, .ItemContainer img {
+    margin-right: 30px;
+}

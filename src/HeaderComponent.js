@@ -5,29 +5,16 @@ import {
     Button
 } from "@aws-amplify/ui-react";
 
-import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import './HeaderComponent.css';
+import { useEffect, useRef } from 'react';
 
-const HeaderComponent = () => {
+const HeaderComponent = (props) => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState("");
+    const location = useLocation();
+
     const guest = "guest";
-
-
-    useEffect(() => {
-        getUser();
-    }, []);
-
-    async function getUser() {
-        Auth.currentAuthenticatedUser().then(value => {
-            setUsername(value.username)
-        }).catch((err) => {
-            if (err)
-                setUsername("")
-        });
-    }
 
     const handleSignIn = () => navigate("/login")
 
@@ -39,20 +26,26 @@ const HeaderComponent = () => {
         })
     }
 
+    const handleHome = () => navigate("/");
+
     return (
         <div className='HeaderContainer'>
             <h3>
-                Hello {(username === "") ? guest : username}!
+                Hello {(props.username === "") ? guest : props.username}!
             </h3>
-            {(username === "") &&
+            {(props.username === "") &&
                 <div className="Header_Buttons_Container">
                     <Button type="submit" variation='primary' onClick={handleSignIn}>Login In</Button>
                     <Button type="submit" variation='primary' onClick={handleSignUp}>Sign Up</Button>
+                    {(location.pathname !== "/") &&
+                    <Button type="submit" variation="primary" onClick={handleHome}>Home</Button>}
                 </div>
             }
-            {(username !== "") &&
+            {(props.username !== "") &&
                 <div className='Header_Buttons_Container '>
                     <Button type="submit" variation='primary' onClick={handleSignOut}>Sign Out</Button>
+                    {(location.pathname !== "/") &&
+                    <Button type="submit" variation="primary" onClick={handleHome}>Home</Button>}
                 </div>
             }
         </div>

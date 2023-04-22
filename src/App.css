@@ -10,3 +10,8 @@
 .menuContainer button{
   margin: 0 10px 0 10px;
 }
+
+.HomeItem{
+  display: flex;
+  justify-content: start;
+}

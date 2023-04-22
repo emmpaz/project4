@@ -3,7 +3,7 @@
   "policyUUID": "19f02c24",
   "bucketName": "project4bucket",
   "storageAccess": "auth",
-  "guestAccess": [],
+  "guestAccess": ["READ"],
   "authAccess": [
     "CREATE_AND_UPDATE",
     "READ",
