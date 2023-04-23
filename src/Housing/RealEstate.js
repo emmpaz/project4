@@ -145,7 +145,7 @@ const RealEstate = () => {
                                 as="input"
                                 type="file"
                                 style={{ alignSelf: "end" }}></View>
-                            <Button type="submit" variation="primary">
+                            <Button type="submit" variation="primary" style={{margin: "20px"}}>
                                 Create Estate
                             </Button>
                         </div>

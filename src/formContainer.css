@@ -1,12 +1,10 @@
 .Estate-Form-Container{
     display: flex;
     justify-content: center;
-    border-style: solid;
 }
 
 .contentContainer{
     display: flex;
-    border-style: solid;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -14,7 +12,6 @@
 .ItemContainer{
     display: flex;
     justify-content: center;
-    border-style: solid;
     align-items: center;
     margin-top: 40px;
     margin-bottom: 40px;

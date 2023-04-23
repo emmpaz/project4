@@ -14,6 +14,7 @@ import './SignUp.css';
 const SignUp = () => {
     const [verify, setVerify] = useState(false);
     const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     const navigate = useNavigate();
 
@@ -30,7 +31,8 @@ const SignUp = () => {
                 }
 
             }).then((value) => {
-                setUsername(form.get("username"))
+                setUsername(form.get("username"));
+                setPassword(form.get("password"));
                 setVerify(true)
             }).catch((err) => {
                 console.log(err)
@@ -42,7 +44,16 @@ const SignUp = () => {
         const form = new FormData(event.target);
         Auth.confirmSignUp(username, form.get("code")
         ).then(() => {
-            navigate("/");
+            Auth.signIn(
+                {
+                    username: username,
+                    password: password
+    
+                }).then((value) => {
+                    navigate("/")
+                }).catch((err) => {
+                    console.log(err)
+                })
         }).catch((err) => {
             console.log(err);
         })

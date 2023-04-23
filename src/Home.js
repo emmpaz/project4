@@ -3,17 +3,9 @@ import './formContainer.css';
 import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
-import { API, Storage, Auth } from 'aws-amplify';
+import { API, Storage } from 'aws-amplify';
 import {
-  Button,
-  Heading,
-  Text,
-  View,
-  Image,
-  TextField,
-  Flex,
-  Menu, MenuItem, MenuButton
-
+  Heading, View, Menu, MenuItem, MenuButton, Image
 } from "@aws-amplify/ui-react";
 import { listForSales, listHousings, listServices, listJobs, listCommunities } from './graphql/queries';
 import { getUser } from './getUser';
@@ -88,6 +80,7 @@ const App = () => {
 
 
     );
+    console.log([...communitesAPI, ...ForSalesAPI, ...HousingsAPI, ...JobsAPI, ...ServicesAPI]);
     setList([...communitesAPI, ...ForSalesAPI, ...HousingsAPI, ...JobsAPI, ...ServicesAPI]);
   }
 
@@ -95,7 +88,7 @@ const App = () => {
     <div>
       <View className="App">
         <HeaderComponent username={username} />
-        <Heading level={1}>Cy Selling</Heading>
+        <Heading level={1} style={{marginBottom: "30px"}}>Cy Selling</Heading>
         <div className='menuContainer'>
           <Menu
             trigger={
@@ -163,9 +156,18 @@ const App = () => {
             <MenuItem onClick={() => navigate("/volunteers")}>Volunteer</MenuItem>
           </Menu>
         </div>
-        <Heading level={2}>Current Postings</Heading>
+        <Heading level={2} style={{marginTop : "30px"}}>Current Postings</Heading>
       </View>
-      <div className='ContentContainer'>
+      <div className='HomeContentContainer'>
+        {list.map((item) => {
+          return (
+            <div className='HomeItem' key={item.id || item.title}>
+              <h2>{item.title}</h2>
+              <h3>{item.date}</h3>
+              <p>{item.description}</p>
+            </div>
+          )
+        })}
       </div>
     </div>
   );

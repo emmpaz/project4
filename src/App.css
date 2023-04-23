@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+*, h1{
+  font-family: monospace;
+}
+
 .menuContainer{
   display: flex;
   justify-content: center;
@@ -11,7 +15,22 @@
   margin: 0 10px 0 10px;
 }
 
-.HomeItem{
+.HomeContentContainer{
+  height: 500px;
   display: flex;
-  justify-content: start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.HomeItem{
+  width: fit-content;
+  height: fit-content;
+  min-width: 400px;
+  margin: 30px;
+  border: 2px solid rgba(0, 0, 0, .4);
+  border-radius: 10px;
+}
+
+.HomeItem h2, .HomeItem h3, .HomeItem p{
+  margin-left: 10px;
 }
