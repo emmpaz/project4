@@ -6,7 +6,6 @@ import "@aws-amplify/ui-react/styles.css";
 import { Storage } from 'aws-amplify';
 import {
     View, TextField,
-    Flex,
     Button,
     Text,
     Image
