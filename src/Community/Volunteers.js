@@ -152,7 +152,7 @@ const Volunteers = () => {
                             <h1 fontWeight={700} style={{height : "fit-content"}}>{estate.title}</h1>
                             <div className="ItemDetailsContainer">
                             <Text as="span" style={{height : "fit-content"}}>Description : {estate.description}</Text>
-                            <Text as="span" style={{height : "fit-content"}}>Price : ${estate.price}</Text>
+                            {/* <Text as="span" style={{height : "fit-content"}}>Price : ${estate.price}</Text> */}
                             <Text as="span" style={{height : "fit-content"}}>Date : {estate.date}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Time : {estate.time}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Phone : {estate.phone_number}</Text>
