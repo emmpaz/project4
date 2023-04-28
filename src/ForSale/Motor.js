@@ -79,7 +79,7 @@ const Motor = () => {
                         <div>
                             <TextField
                                 name="title"
-                                placeholder='House title'
+                                placeholder='Motorcycle title'
                                 label="House title"
                                 labelHidden
                                 variation='quiet'

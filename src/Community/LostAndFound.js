@@ -78,7 +78,7 @@ const LostAndFound = () => {
                         <div>
                             <TextField
                                 name="title"
-                                placeholder='Job title'
+                                placeholder='Community title'
                                 label="Job title"
                                 labelHidden
                                 variation='quiet'

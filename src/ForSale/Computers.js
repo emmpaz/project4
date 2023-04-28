@@ -79,7 +79,7 @@ const Computers = () => {
                         <div>
                             <TextField
                                 name="title"
-                                placeholder='House title'
+                                placeholder='Computer title'
                                 label="House title"
                                 labelHidden
                                 variation='quiet'
