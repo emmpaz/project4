@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { listJobs } from "../graphql/queries";
 import { getUser } from '../getUser';
 import "@aws-amplify/ui-react/styles.css";
-import { Storage } from 'aws-amplify';
 import {
     View, TextField,
     Button,
@@ -31,15 +30,7 @@ const Admin_Office = () => {
     async function getAdminOffice() {
         const apiData = await API.graphql({ query: listJobs, variables: { filter: { type: { eq: "admin_office" } } } });
         const listData = apiData.data.listJobs.items;
-        await Promise.all(
-            listData.map(async (house) => {
-                if (house.image) {
-                    const url = await Storage.get(house.title);
-                    house.image = url;
-                }
-                return house;
-            })
-        )
+        
         setAdminOffice_list(listData);
     }
 
@@ -56,14 +47,10 @@ const Admin_Office = () => {
             time: form.get("time"),
             phone_number: form.get("phone_number"),
             location: form.get("location"),
-            image: image.name,
+            
             user: username
         }
-        if (!!data.image){
-            await Storage.put(data.title, image).then((value) => {
-                console.log(value);
-            });
-        }
+       
         await API.graphql({
             query: createJobsMutation,
             variables: { input: data }
@@ -75,7 +62,7 @@ const Admin_Office = () => {
     async function deleteJob({ id, title }) {
         const newHousing = AdminOffice_list.filter((house) => house.id !== id);
         setAdminOffice_list(newHousing);
-        await Storage.remove(title);
+       
         await API.graphql({
             query: deleteJobsMutation,
             variables: { input: { id } }
@@ -139,11 +126,7 @@ const Admin_Office = () => {
                                 labelHidden
                                 variation='quiet'
                                 required></TextField>
-                            <View
-                                name="image"
-                                as="input"
-                                type="file"
-                                style={{ alignSelf: "end" }}></View>
+                            
                             <Button type="submit" variation="primary" style={{margin: "20px"}}>
                                 Create Posting
                             </Button>
@@ -160,19 +143,13 @@ const Admin_Office = () => {
                             <h1 fontWeight={700} style={{height : "fit-content"}}>{estate.title}</h1>
                             <div className="ItemDetailsContainer">
                             <Text as="span" style={{height : "fit-content"}}>Description : {estate.description}</Text>
-                            <Text as="span" style={{height : "fit-content"}}>Pay : ${estate.price}</Text>
+                            <Text as="span" style={{height : "fit-content"}}>Pay : ${estate.pay}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Date : {estate.date}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Time : {estate.time}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Phone : {estate.phone_number}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Location : {estate.location}</Text>
                             </div>
-                            {estate.image && (
-                                <Image
-                                    src={estate.image}
-                                    alt={`visual aid for ${estate.title}`}
-                                    style={{ width: "20%" }}
-                                ></Image>
-                            )}
+                            
                              {(username !== "") && (estate.user === username) &&
                                 <Button type="submit" variation="primary" style={{height : "fit-content"}} onClick={() => deleteJob(estate)}>
                                     Delete Posting

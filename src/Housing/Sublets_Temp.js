@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { listHousings } from "../graphql/queries";
 import { getUser } from '../getUser';
 import "@aws-amplify/ui-react/styles.css";
-import { Storage } from 'aws-amplify';
 import {
     View, TextField,
     Button,
@@ -31,15 +30,7 @@ const Temp_Sublet = () => {
     async function getTemp_Sublet() {
         const apiData = await API.graphql({ query: listHousings, variables: { filter: { type: { eq: "sublet_temp" } } } });
         const listData = apiData.data.listHousings.items;
-        await Promise.all(
-            listData.map(async (house) => {
-                if (house.image) {
-                    const url = await Storage.get(house.title);
-                    house.image = url;
-                }
-                return house;
-            })
-        )
+        
         setTemp_Sublet_list(listData);
     }
 
@@ -56,14 +47,10 @@ const Temp_Sublet = () => {
             time: form.get("time"),
             phone_number: form.get("phone_number"),
             location: form.get("location"),
-            image: image.name,
+            
             user: username
         }
-        if (!!data.image){
-            await Storage.put(data.title, image).then((value) => {
-                console.log(value);
-            });
-        }
+       
         await API.graphql({
             query: createHousingMutation,
             variables: { input: data }
@@ -75,7 +62,7 @@ const Temp_Sublet = () => {
     async function deleteHouse({ id, title }) {
         const newHousing = Temp_Sublet_list.filter((house) => house.id !== id);
         setTemp_Sublet_list(newHousing);
-        await Storage.remove(title);
+       
         await API.graphql({
             query: deleteHousingMutation,
             variables: { input: { id } }
@@ -92,7 +79,7 @@ const Temp_Sublet = () => {
                         <div>
                             <TextField
                                 name="title"
-                                placeholder='House title'
+                                placeholder='Sublet title'
                                 label="House title"
                                 labelHidden
                                 variation='quiet'
@@ -139,12 +126,8 @@ const Temp_Sublet = () => {
                                 labelHidden
                                 variation='quiet'
                                 required></TextField>
-                            <View
-                                name="image"
-                                as="input"
-                                type="file"
-                                style={{ alignSelf: "end" }}></View>
-                            <Button type="submit" variation="primary">
+                            
+                            <Button type="submit" variation="primary" style={{margin: "20px"}}>
                                 Create Listing
                             </Button>
                         </div>
@@ -166,13 +149,7 @@ const Temp_Sublet = () => {
                             <Text as="span" style={{height : "fit-content"}}>Phone : {estate.phone_number}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Location : {estate.location}</Text>
                             </div>
-                            {estate.image && (
-                                <Image
-                                    src={estate.image}
-                                    alt={`visual aid for ${estate.title}`}
-                                    style={{ width: "20%" }}
-                                ></Image>
-                            )}
+                            
                              {(username !== "") && (estate.user === username) &&
                                 <Button type="submit" variation="primary" style={{height : "fit-content"}} onClick={() => deleteHouse(estate)}>
                                     Delete Posting

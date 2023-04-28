@@ -3,7 +3,7 @@ import './formContainer.css';
 import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
-import { API, Storage } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import {
   Heading, View, Menu, MenuItem, MenuButton, Image
 } from "@aws-amplify/ui-react";
@@ -36,50 +36,6 @@ const App = () => {
     const HousingsAPI = apiData3.data.listHousings.items;
     const JobsAPI = apiData4.data.listJobs.items;
     const ServicesAPI = apiData5.data.listServices.items;
-    await Promise.all(
-      communitesAPI.map(async (note) => {
-        if (note.image) {
-          const url = await Storage.get(note.title);
-          note.image = url;
-        }
-        return note;
-      }
-      ),
-      ForSalesAPI.map(async (note) => {
-        if (note.image) {
-          const url = await Storage.get(note.title);
-          note.image = url;
-        }
-        return note;
-      }
-      ),
-      HousingsAPI.map(async (note) => {
-        if (note.image) {
-          const url = await Storage.get(note.title);
-          note.image = url;
-        }
-        return note;
-      }
-      ),
-      JobsAPI.map(async (note) => {
-        if (note.image) {
-          const url = await Storage.get(note.title);
-          note.image = url;
-        }
-        return note;
-      }
-      ),
-      ServicesAPI.map(async (note) => {
-        if (note.image) {
-          const url = await Storage.get(note.title);
-          note.image = url;
-        }
-        return note;
-      }
-      )
-
-
-    );
     console.log([...communitesAPI, ...ForSalesAPI, ...HousingsAPI, ...JobsAPI, ...ServicesAPI]);
     setList([...communitesAPI, ...ForSalesAPI, ...HousingsAPI, ...JobsAPI, ...ServicesAPI]);
   }

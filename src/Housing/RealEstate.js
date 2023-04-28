@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { listHousings } from "../graphql/queries";
 import { getUser } from '../getUser';
 import "@aws-amplify/ui-react/styles.css";
-import { Storage } from 'aws-amplify';
 import {
     View, TextField,
     Button,
@@ -31,15 +30,7 @@ const RealEstate = () => {
     async function getRealEstate() {
         const apiData = await API.graphql({ query: listHousings, variables: { filter: { type: { eq: "realestate" } } } });
         const listData = apiData.data.listHousings.items;
-        await Promise.all(
-            listData.map(async (house) => {
-                if (house.image) {
-                    const url = await Storage.get(house.title);
-                    house.image = url;
-                }
-                return house;
-            })
-        )
+        
         setRealestate_list(listData);
     }
 
@@ -56,14 +47,10 @@ const RealEstate = () => {
             time: form.get("time"),
             phone_number: form.get("phone_number"),
             location: form.get("location"),
-            image: image.name,
+            
             user: username
         }
-        if (!!data.image){
-            await Storage.put(data.title, image).then((value) => {
-                console.log(value);
-            });
-        }
+       
         await API.graphql({
             query: createHousingMutation,
             variables: { input: data }
@@ -75,7 +62,7 @@ const RealEstate = () => {
     async function deleteEstate({ id, title }) {
         const newHousing = realestate_list.filter((house) => house.id !== id);
         setRealestate_list(newHousing);
-        await Storage.remove(title);
+       
         await API.graphql({
             query: deleteHousingMutation,
             variables: { input: { id } }
@@ -139,11 +126,7 @@ const RealEstate = () => {
                                 labelHidden
                                 variation='quiet'
                                 required></TextField>
-                            <View
-                                name="image"
-                                as="input"
-                                type="file"
-                                style={{ alignSelf: "end" }}></View>
+                            
                             <Button type="submit" variation="primary" style={{margin: "20px"}}>
                                 Create Estate
                             </Button>
@@ -152,7 +135,7 @@ const RealEstate = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Real Estate Listings</h1>
+                <h1 className="contentTitle">Real Estate Listings</h1>
                 {realestate_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}
@@ -166,13 +149,7 @@ const RealEstate = () => {
                             <Text as="span" style={{height : "fit-content"}}>Phone : {estate.phone_number}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Location : {estate.location}</Text>
                             </div>
-                            {estate.image && (
-                                <Image
-                                    src={estate.image}
-                                    alt={`visual aid for ${estate.title}`}
-                                    style={{ width: "20%" }}
-                                ></Image>
-                            )}
+                            
                              {(username !== "") && (estate.user === username) &&
                                 <Button type="submit" variation="primary" style={{height : "fit-content"}} onClick={() => deleteEstate(estate)}>
                                     Delete Posting

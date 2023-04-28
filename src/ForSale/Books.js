@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { listForSales } from "../graphql/queries";
 import { getUser } from '../getUser';
 import "@aws-amplify/ui-react/styles.css";
-import { Storage } from 'aws-amplify';
 import {
     View, TextField,
     Button,
@@ -31,15 +30,7 @@ const Books = () => {
     async function getBooks() {
         const apiData = await API.graphql({ query: listForSales, variables: { filter: { type: { eq: "books" } } } });
         const listData = apiData.data.listForSales.items;
-        await Promise.all(
-            listData.map(async (house) => {
-                if (house.image) {
-                    const url = await Storage.get(house.title);
-                    house.image = url;
-                }
-                return house;
-            })
-        )
+        
         setBooks_list(listData);
     }
 
@@ -56,14 +47,10 @@ const Books = () => {
             time: form.get("time"),
             phone_number: form.get("phone_number"),
             location: form.get("location"),
-            image: image.name,
+            
             user: username
         }
-        if (!!data.image){
-            await Storage.put(data.title, image).then((value) => {
-                console.log(value);
-            });
-        }
+       
         await API.graphql({
             query: createForSaleMutation,
             variables: { input: data }
@@ -75,7 +62,7 @@ const Books = () => {
     async function deleteItem({ id, title }) {
         const newHousing = Books_list.filter((house) => house.id !== id);
         setBooks_list(newHousing);
-        await Storage.remove(title);
+       
         await API.graphql({
             query: deleteForSaleMutation,
             variables: { input: { id } }
@@ -139,11 +126,7 @@ const Books = () => {
                                 labelHidden
                                 variation='quiet'
                                 required></TextField>
-                            <View
-                                name="image"
-                                as="input"
-                                type="file"
-                                style={{ alignSelf: "end" }}></View>
+                            
                             <Button type="submit" variation="primary" style={{margin: "20px"}}>
                                 Create Posting
                             </Button>
@@ -166,13 +149,7 @@ const Books = () => {
                             <Text as="span" style={{height : "fit-content"}}>Phone : {estate.phone_number}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Location : {estate.location}</Text>
                             </div>
-                            {estate.image && (
-                                <Image
-                                    src={estate.image}
-                                    alt={`visual aid for ${estate.title}`}
-                                    style={{ width: "20%" }}
-                                ></Image>
-                            )}
+                            
                              {(username !== "") && (estate.user === username) &&
                                 <Button type="submit" variation="primary" style={{height : "fit-content"}} onClick={() => deleteItem(estate)}>
                                     Delete Posting

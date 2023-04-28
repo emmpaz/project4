@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { listCommunities } from "../graphql/queries";
 import { getUser } from '../getUser';
 import "@aws-amplify/ui-react/styles.css";
-import { Storage } from 'aws-amplify';
 import {
     View, TextField,
     Button,
@@ -31,15 +30,7 @@ const LostAndFound = () => {
     async function getLostAndFound() {
         const apiData = await API.graphql({ query: listCommunities, variables: { filter: { type: { eq: "lostandfound" } } } });
         const listData = apiData.data.listCommunities.items;
-        await Promise.all(
-            listData.map(async (house) => {
-                if (house.image) {
-                    const url = await Storage.get(house.title);
-                    house.image = url;
-                }
-                return house;
-            })
-        )
+        
         setLostAndFound_list(listData);
     }
 
@@ -55,14 +46,10 @@ const LostAndFound = () => {
             time: form.get("time"),
             phone_number: form.get("phone_number"),
             location: form.get("location"),
-            image: image.name,
+            
             user: username
         }
-        if (!!data.image){
-            await Storage.put(data.title, image).then((value) => {
-                console.log(value);
-            });
-        }
+       
         await API.graphql({
             query: createCommunityMutation,
             variables: { input: data }
@@ -74,7 +61,7 @@ const LostAndFound = () => {
     async function deleteCommunity({ id, title }) {
         const newHousing = LostAndFound_list.filter((house) => house.id !== id);
         setLostAndFound_list(newHousing);
-        await Storage.remove(title);
+       
         await API.graphql({
             query: deleteCommunityMutation,
             variables: { input: { id } }
@@ -131,11 +118,7 @@ const LostAndFound = () => {
                                 labelHidden
                                 variation='quiet'
                                 required></TextField>
-                            <View
-                                name="image"
-                                as="input"
-                                type="file"
-                                style={{ alignSelf: "end" }}></View>
+                            
                             <Button type="submit" variation="primary" style={{margin: "20px"}}>
                                 Create Posting
                             </Button>
@@ -158,13 +141,7 @@ const LostAndFound = () => {
                             <Text as="span" style={{height : "fit-content"}}>Phone : {estate.phone_number}</Text>
                             <Text as="span" style={{height : "fit-content"}}>Location : {estate.location}</Text>
                             </div>
-                            {estate.image && (
-                                <Image
-                                    src={estate.image}
-                                    alt={`visual aid for ${estate.title}`}
-                                    style={{ width: "20%" }}
-                                ></Image>
-                            )}
+                            
                              {(username !== "") && (estate.user === username) &&
                                 <Button type="submit" variation="primary" style={{height : "fit-content"}} onClick={() => deleteCommunity(estate)}>
                                     Delete Posting
