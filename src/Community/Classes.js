@@ -127,7 +127,7 @@ const Classes = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Class Postings</h1>
+                <h1 className="contentTitle">Class Postings</h1>
                 {Classes_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

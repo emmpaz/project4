@@ -135,7 +135,7 @@ const Security = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Security Job Postings</h1>
+                <h1 className="contentTitle">Security Job Postings</h1>
                 {Security_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

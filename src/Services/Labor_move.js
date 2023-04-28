@@ -127,7 +127,7 @@ const Labor_Move = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Labor/Move Service Postings</h1>
+                <h1 className="contentTitle">Labor/Move Service Postings</h1>
                 {Labor_Move_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

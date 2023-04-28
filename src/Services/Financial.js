@@ -126,7 +126,7 @@ const Financial = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Financial Service Postings</h1>
+                <h1 className="contentTitle">Financial Service Postings</h1>
                 {Financial_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

@@ -127,7 +127,7 @@ const Computer = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Computer Service Postings</h1>
+                <h1 className="contentTitle">Computer Service Postings</h1>
                 {Computer_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

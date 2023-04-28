@@ -135,7 +135,7 @@ const Admin_Office = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Admin/Office Job Postings</h1>
+                <h1 className="contentTitle">Admin/Office Job Postings</h1>
                 {AdminOffice_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

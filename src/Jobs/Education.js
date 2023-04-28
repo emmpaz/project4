@@ -135,7 +135,7 @@ const Education = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Education Job Postings</h1>
+                <h1 className="contentTitle">Education Job Postings</h1>
                 {Education_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

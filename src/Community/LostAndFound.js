@@ -127,7 +127,7 @@ const LostAndFound = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Lost and Found Postings</h1>
+                <h1 className="contentTitle">Lost and Found Postings</h1>
                 {LostAndFound_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

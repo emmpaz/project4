@@ -135,7 +135,7 @@ const Motor = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Motorcycle Postings</h1>
+                <h1 className="contentTitle">Motorcycle Postings</h1>
                 {Motorcycle_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}

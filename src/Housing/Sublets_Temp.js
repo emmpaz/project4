@@ -135,7 +135,7 @@ const Temp_Sublet = () => {
                 </div>
             </View>
             <div className="contentContainer">
-                <h1>Sublets/Temporary Living Listings</h1>
+                <h1 className="contentTitle">Sublets/Temporary Living Listings</h1>
                 {Temp_Sublet_list.map((estate) => (
                         <div className="ItemContainer"
                             key={estate.id || estate.title}
